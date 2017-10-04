@@ -15,6 +15,7 @@ import org.apache.flink.streaming.api.windowing.time.Time;
 import org.junit.Test;
 
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,14 +27,31 @@ public class TimeWindowTest {
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
         SingleOutputStreamOperator<Tuple2<Integer, ZonedDateTime>> windowed = env.fromElements(
-                new Tuple2<>(15, ZonedDateTime.now().plusSeconds(2)),
-                new Tuple2<>(16, ZonedDateTime.now().plusSeconds(3)),
-                new Tuple2<>(17, ZonedDateTime.now().plusSeconds(8)),
-                new Tuple2<>(18, ZonedDateTime.now().plusSeconds(15))
+                new Tuple2<>(15, ZonedDateTime.now()
+                        .withHour(1)
+                        .withMinute(2)
+                        .withSecond(2)
+                        .truncatedTo(ChronoUnit.SECONDS)),
+                new Tuple2<>(16,
+                        ZonedDateTime.now()
+                                .withHour(1)
+                                .withMinute(2)
+                                .withSecond(3)
+                                .truncatedTo(ChronoUnit.SECONDS)),
+                new Tuple2<>(17, ZonedDateTime.now()
+                        .withHour(1)
+                        .withMinute(2)
+                        .withSecond(8)
+                        .truncatedTo(ChronoUnit.SECONDS)),
+                new Tuple2<>(18, ZonedDateTime.now()
+                        .withHour(1)
+                        .withMinute(2)
+                        .withSecond(15)
+                        .truncatedTo(ChronoUnit.SECONDS))
         ).assignTimestampsAndWatermarks(new AscendingTimestampExtractor<Tuple2<Integer, ZonedDateTime>>() {
             @Override
             public long extractAscendingTimestamp(Tuple2<Integer, ZonedDateTime> element) {
-                return element.f1.toInstant().getEpochSecond() * 1000;
+                return element.f1.toInstant().toEpochMilli();
             }
         });
 
@@ -61,7 +79,7 @@ public class TimeWindowTest {
         ).assignTimestampsAndWatermarks(new AscendingTimestampExtractor<Tuple2<Integer, ZonedDateTime>>() {
             @Override
             public long extractAscendingTimestamp(Tuple2<Integer, ZonedDateTime> element) {
-                return element.f1.toInstant().getEpochSecond() * 1000;
+                return element.f1.toInstant().toEpochMilli();
             }
         });
 
@@ -92,7 +110,7 @@ public class TimeWindowTest {
         ).assignTimestampsAndWatermarks(new AscendingTimestampExtractor<Tuple2<Integer, ZonedDateTime>>() {
             @Override
             public long extractAscendingTimestamp(Tuple2<Integer, ZonedDateTime> element) {
-                return element.f1.toInstant().getEpochSecond() * 1000;
+                return element.f1.toInstant().toEpochMilli();
             }
         });
 
@@ -122,7 +140,7 @@ public class TimeWindowTest {
         ).assignTimestampsAndWatermarks(new AscendingTimestampExtractor<Tuple2<Integer, ZonedDateTime>>() {
             @Override
             public long extractAscendingTimestamp(Tuple2<Integer, ZonedDateTime> element) {
-                return element.f1.toInstant().getEpochSecond() * 1000;
+                return element.f1.toInstant().toEpochMilli();
             }
         });
 
