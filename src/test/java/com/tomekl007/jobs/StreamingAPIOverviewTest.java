@@ -37,7 +37,6 @@ public class StreamingAPIOverviewTest {
     }
 
     @Test
-    @Ignore("infinite stream")
     public void givenIterativeDataStream_whenApplyOperations_thenShouldYieldProperResults() throws IOException {
         //given
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -55,7 +54,7 @@ public class StreamingAPIOverviewTest {
         iteration.closeWith(stillGreaterThanZero);
 
         //then
-        stillGreaterThanZero.print();
+        //todo create sink
     }
 
 }
