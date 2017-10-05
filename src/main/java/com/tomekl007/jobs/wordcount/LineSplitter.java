@@ -1,4 +1,4 @@
-package com.tomekl007.jobs;
+package com.tomekl007.jobs.wordcount;
 
 import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.java.tuple.Tuple2;

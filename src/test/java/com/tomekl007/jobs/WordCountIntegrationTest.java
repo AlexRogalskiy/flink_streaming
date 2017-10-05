@@ -1,5 +1,6 @@
 package com.tomekl007.jobs;
 
+import com.tomekl007.jobs.wordcount.WordCount;
 import org.apache.flink.api.common.operators.Order;
 import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.ExecutionEnvironment;
