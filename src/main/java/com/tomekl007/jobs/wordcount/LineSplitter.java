@@ -12,11 +12,11 @@ public class LineSplitter implements FlatMapFunction<String, Tuple2<String, Inte
     @Override
     public void flatMap(String value, Collector<Tuple2<String, Integer>> out) {
 
-        String[] tokens = new String[]{};//todo implement split
+        String[] tokens = value.toLowerCase().split("\\W+");
         Stream.of(tokens)
                 .filter(t -> t.length() > 0)
                 .forEach(token ->
-                        out.collect(Tuple2.of("", 0))//todo collect token with counter
+                        out.collect(new Tuple2<>(token, 1))
                 );
     }
 }
