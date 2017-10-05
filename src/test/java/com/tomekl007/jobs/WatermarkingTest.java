@@ -89,6 +89,7 @@ public class WatermarkingTest {
     }
 
     @Test
+    @Ignore
     public void givenStreamOfEvents_whenSumWindowsWithAllowingLateness_thenShouldSumAlsoNotInOrderEvent() throws Exception {
         //given
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();

@@ -13,8 +13,8 @@ public class WordCount {
         DataSet<String> text = env.fromCollection(lines);
 
         return text.flatMap(new LineSplitter())
-                .groupBy(0)
-                .aggregate(Aggregations.SUM, 1);
+                .groupBy(0).aggregate(null, -1);
+        //todo implement aggregate
 
     }
 }

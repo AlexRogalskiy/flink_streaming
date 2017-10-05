@@ -1,12 +1,12 @@
 package com.tomekl007.jobs.wordcount;
 
-import com.tomekl007.jobs.wordcount.WordCount;
 import org.apache.flink.api.common.operators.Order;
 import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.ExecutionEnvironment;
 import org.apache.flink.api.java.functions.KeySelector;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.tuple.Tuple3;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -29,12 +29,19 @@ public class WordCountIntegrationTest {
         //then
         List<Tuple2<String, Integer>> collect = result.collect();
         assertThat(collect).containsExactlyInAnyOrder(
-          new Tuple2<>("a", 3), new Tuple2<>("sentence", 2), new Tuple2<>("word", 1),
-          new Tuple2<>("is", 2), new Tuple2<>("this", 2), new Tuple2<>("second", 1),
-          new Tuple2<>("first", 1), new Tuple2<>("with", 1), new Tuple2<>("one", 1));
+                new Tuple2<>("a", 3),
+                new Tuple2<>("sentence", 2),
+                new Tuple2<>("word", 1),
+                new Tuple2<>("is", 2),
+                new Tuple2<>("this", 2),
+                new Tuple2<>("second", 1),
+                new Tuple2<>("first", 1),
+                new Tuple2<>("with", 1), new Tuple2<>("one", 1)
+        );
     }
 
     @Test
+    @Ignore
     public void givenListOfAmounts_whenUseMapReduce_thenSumAmountsThatAreOnlyAboveThreshold() throws Exception {
         //given
         DataSet<Integer> amounts = env.fromElements(1, 29, 40, 50);
@@ -42,15 +49,16 @@ public class WordCountIntegrationTest {
 
         //when
         List<Integer> collect = amounts
-          .filter(a -> a > threshold)
-          .reduce((integer, t1) -> integer + t1)
-          .collect();
+                .filter(a -> a > threshold)
+                .reduce((integer, t1) -> integer + t1)
+                .collect();
 
         //then
         assertThat(collect.get(0)).isEqualTo(90);
     }
 
     @Test
+    @Ignore
     public void givenDataSetOfComplexObjects_whenMapToGetOneField_thenReturnedListHaveProperElements() throws Exception {
         //given
         DataSet<Person> personDataSource = env.fromCollection(Arrays.asList(new Person(23, "Tom"), new Person(75, "Michael")));
@@ -65,6 +73,7 @@ public class WordCountIntegrationTest {
     }
 
     @Test
+    @Ignore
     public void givenDataSet_whenSortItByOneField_thenShouldReturnSortedDataSet() throws Exception {
         //given
         Tuple2<Integer, String> secondPerson = new Tuple2<>(4, "Tom");
@@ -72,13 +81,13 @@ public class WordCountIntegrationTest {
         Tuple2<Integer, String> fourthPerson = new Tuple2<>(200, "Michael");
         Tuple2<Integer, String> firstPerson = new Tuple2<>(1, "Jack");
         DataSet<Tuple2<Integer, String>> transactions = env.fromElements(fourthPerson, secondPerson,
-          thirdPerson, firstPerson);
+                thirdPerson, firstPerson);
 
 
         //when
         List<Tuple2<Integer, String>> sorted = transactions
-          .sortPartition(new IdKeySelectorTransaction(), Order.ASCENDING)
-          .collect();
+                .sortPartition(new IdKeySelectorTransaction(), Order.ASCENDING)
+                .collect();
 
         //then
         assertThat(sorted).containsExactly(firstPerson, secondPerson, thirdPerson, fourthPerson);
@@ -86,6 +95,7 @@ public class WordCountIntegrationTest {
 
 
     @Test
+    @Ignore
     public void giveTwoDataSets_whenJoinUsingId_thenProduceJoinedData() throws Exception {
         //given
         Tuple3<Integer, String, String> address = new Tuple3<>(1, "5th Avenue", "London");
@@ -93,15 +103,15 @@ public class WordCountIntegrationTest {
 
         Tuple2<Integer, String> firstTransaction = new Tuple2<>(1, "Transaction_1");
         DataSet<Tuple2<Integer, String>> transactions =
-          env.fromElements(firstTransaction, new Tuple2<>(12, "Transaction_2"));
+                env.fromElements(firstTransaction, new Tuple2<>(12, "Transaction_2"));
 
 
         //when
         List<Tuple2<Tuple2<Integer, String>, Tuple3<Integer, String, String>>> joined =
-          transactions.join(addresses)
-            .where(new IdKeySelectorTransaction())
-            .equalTo(new IdKeySelectorAddress())
-            .collect();
+                transactions.join(addresses)
+                        .where(new IdKeySelectorTransaction())
+                        .equalTo(new IdKeySelectorAddress())
+                        .collect();
 
         //then
         assertThat(joined).hasSize(1);

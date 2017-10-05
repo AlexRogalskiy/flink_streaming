@@ -5,6 +5,7 @@ import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -16,6 +17,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class DeduplicateFilterTest {
 
     @Test
+    @Ignore
     public void givenStreamWithDuplicates_whenDuplicateArrive_thenShouldFilterItOut() throws IOException {
         //given
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();

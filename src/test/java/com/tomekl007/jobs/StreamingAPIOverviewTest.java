@@ -18,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class StreamingAPIOverviewTest {
 
     @Test
+    @Ignore
     public void givenStreamOfEvents_whenProcessEvents_thenShouldPrintResultsOnSinkOperation() throws Exception {
         //given
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();

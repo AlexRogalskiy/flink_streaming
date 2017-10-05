@@ -12,6 +12,7 @@ import org.apache.flink.streaming.api.windowing.assigners.TumblingEventTimeWindo
 import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import org.apache.flink.util.Collector;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -23,6 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class SortingTest {
     @Test
+    @Ignore
     public void givenUnsortedStream_whenSortingIt_thenShouldHaveProperOrder() throws IOException {
         //given
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();

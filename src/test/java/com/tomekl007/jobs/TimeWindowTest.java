@@ -13,6 +13,7 @@ import org.apache.flink.streaming.api.windowing.assigners.EventTimeSessionWindow
 import org.apache.flink.streaming.api.windowing.assigners.SlidingEventTimeWindows;
 import org.apache.flink.streaming.api.windowing.assigners.TumblingEventTimeWindows;
 import org.apache.flink.streaming.api.windowing.time.Time;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.time.ZonedDateTime;
@@ -23,6 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class TimeWindowTest {
     @Test
+    @Ignore
     public void givenStreamOfEvents_whenProcessEvents_thenShouldApplyTumblingWindowingOnTransformation() throws Exception {
         //given
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -69,6 +71,7 @@ public class TimeWindowTest {
     }
 
     @Test
+    @Ignore
     public void givenStreamOfEvents_whenProcessEvents_thenShouldApplySlidingWindowingOnTransformation() throws Exception {
         //given
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -100,6 +103,7 @@ public class TimeWindowTest {
 
 
     @Test
+    @Ignore
     public void givenStreamOfEvents_whenProcessEvents_thenShouldApplySessionWindowingOnTransformation() throws Exception {
         //given
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -131,6 +135,7 @@ public class TimeWindowTest {
     }
 
     @Test
+    @Ignore
     public void givenStreamOfEvents_whenProcessEventsKeyedPerUserId_thenShouldApplySessionWindowingOnTransformation() throws Exception {
         //given
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();

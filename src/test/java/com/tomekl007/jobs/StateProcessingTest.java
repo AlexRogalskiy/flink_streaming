@@ -8,6 +8,7 @@ import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.runtime.state.filesystem.FsStateBackend;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -19,6 +20,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class StateProcessingTest {
     @Test
+    @Ignore
     public void givenStreamOfInts_whenCalculateAverage_thenShouldReturnProperValue() throws IOException {
         //given
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -40,6 +42,7 @@ public class StateProcessingTest {
     }
 
     @Test
+    @Ignore
     public void givenStreamOfInts_whenCalculateAverage_thenShouldReturnProperValueWithCheckpointing() throws Exception {
         //given
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
