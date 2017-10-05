@@ -5,11 +5,12 @@ import flink.stream.contrib.DataStreamUtils;
 import org.apache.flink.api.common.restartstrategy.RestartStrategies;
 import org.apache.flink.api.common.time.Time;
 import org.apache.flink.api.java.tuple.Tuple2;
-import org.apache.flink.runtime.state.memory.MemoryStateBackend;
+import org.apache.flink.runtime.state.filesystem.FsStateBackend;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -49,7 +50,7 @@ public class StateProcessingTest {
         ));
 
         env.enableCheckpointing(10);
-        env.setStateBackend(new MemoryStateBackend());
+        env.setStateBackend(new FsStateBackend(testCheckpointPath()));
 
         //when
         SingleOutputStreamOperator<Tuple2<Long, Long>> average = env.fromElements(
@@ -66,5 +67,9 @@ public class StateProcessingTest {
         assertThat(result.size()).isEqualTo(2);
         assertThat(result.get(0).f1).isEqualTo(4L);
         assertThat(result.get(1).f1).isEqualTo(6L);
+    }
+
+    private String testCheckpointPath() {
+        return "file://" + new File("src/test/resources").getAbsolutePath() + "/state-checkpoint";
     }
 }
