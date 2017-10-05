@@ -1,4 +1,4 @@
-package com.tomekl007.jobs;
+package com.tomekl007.jobs.wordcount;
 
 import com.tomekl007.jobs.wordcount.WordCount;
 import org.apache.flink.api.common.operators.Order;
