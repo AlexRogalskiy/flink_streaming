@@ -10,7 +10,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -63,7 +62,7 @@ public class WordCountIntegrationTest {
         DataSet<Person> personDataSource = env.fromCollection(Arrays.asList(new Person(23, "Tom"), new Person(75, "Michael")));
 
         //when
-        List<Integer> ages = new LinkedList<>();//implement extracting fields
+        List<Integer> ages = personDataSource.map(p -> p.age).collect();
 
         //then
         assertThat(ages).hasSize(2);
