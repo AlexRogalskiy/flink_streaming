@@ -10,6 +10,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -92,7 +93,6 @@ public class WordCountIntegrationTest {
 
 
     @Test
-    @Ignore
     public void giveTwoDataSets_whenJoinUsingId_thenProduceJoinedData() throws Exception {
         //given
         Tuple3<Integer, String, String> address = new Tuple3<>(1, "5th Avenue", "London");
@@ -105,10 +105,8 @@ public class WordCountIntegrationTest {
 
         //when
         List<Tuple2<Tuple2<Integer, String>, Tuple3<Integer, String, String>>> joined =
-                transactions.join(addresses)
-                        .where(new IdKeySelectorTransaction())
-                        .equalTo(new IdKeySelectorAddress())
-                        .collect();
+                new LinkedList<>();
+                //todo use join method on transactions data set
 
         //then
         assertThat(joined).hasSize(1);
