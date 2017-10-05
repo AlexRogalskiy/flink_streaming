@@ -120,7 +120,7 @@ public class WordCountIntegrationTest {
     private static class IdKeySelectorTransaction implements KeySelector<Tuple2<Integer, String>, Integer> {
         @Override
         public Integer getKey(Tuple2<Integer, String> value) {
-            return 0; //todo implement selector of needed field
+            return value.f0;
         }
     }
 
