@@ -18,14 +18,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class StreamingAPIOverviewTest {
 
     @Test
-    @Ignore
     public void givenStreamOfEvents_whenProcessEvents_thenShouldPrintResultsOnSinkOperation() throws Exception {
         //given
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
         DataStream<String> text
-                = env.fromElements("This is a first sentence",
-                "This is a second sentence with a one word");
+                = null;//todo create stream from elements that match the logic
         SingleOutputStreamOperator<String> upperCase = text.map(String::toUpperCase);
 
 
