@@ -48,20 +48,22 @@ public class WordCountIntegrationTest {
         int threshold = 30;
 
         //when
-        List<Integer> collect = new LinkedList<>();//todo implement sumAboveThreshold
+        List<Integer> collect = amounts
+                .filter(a -> a > threshold)
+                .reduce((integer, t1) -> integer + t1)
+                .collect();
 
         //then
         assertThat(collect.get(0)).isEqualTo(90);
     }
 
     @Test
-    @Ignore
     public void givenDataSetOfComplexObjects_whenMapToGetOneField_thenReturnedListHaveProperElements() throws Exception {
         //given
         DataSet<Person> personDataSource = env.fromCollection(Arrays.asList(new Person(23, "Tom"), new Person(75, "Michael")));
 
         //when
-        List<Integer> ages = personDataSource.map(p -> p.age).collect();
+        List<Integer> ages = new LinkedList<>();//implement extracting fields
 
         //then
         assertThat(ages).hasSize(2);
