@@ -1,0 +1,7 @@
+/Users/tomasz.lelek/intellij_workspace/flink/src/main/java/com/tomekl007/jobs/state/CountWindowAverage.java
+/Users/tomasz.lelek/intellij_workspace/flink/src/main/java/flink/stream/contrib/SocketStreamIterator.java
+/Users/tomasz.lelek/intellij_workspace/flink/src/main/java/com/tomekl007/jobs/LineSplitter.java
+/Users/tomasz.lelek/intellij_workspace/flink/src/main/java/com/tomekl007/jobs/WordCount.java
+/Users/tomasz.lelek/intellij_workspace/flink/src/main/java/flink/stream/contrib/CollectSink.java
+/Users/tomasz.lelek/intellij_workspace/flink/src/main/java/flink/stream/contrib/DataStreamUtils.java
+/Users/tomasz.lelek/intellij_workspace/flink/src/main/java/com/tomekl007/jobs/deduplication/DeduplicateFilter.java
