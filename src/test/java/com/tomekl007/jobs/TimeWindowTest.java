@@ -5,6 +5,7 @@ import com.tomekl007.jobs.com.tomekl007.utils.ElementsInWindowCounterKeyed;
 import flink.stream.contrib.DataStreamUtils;
 import org.apache.flink.api.java.functions.KeySelector;
 import org.apache.flink.api.java.tuple.Tuple2;
+import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.timestamps.AscendingTimestampExtractor;
@@ -25,6 +26,7 @@ public class TimeWindowTest {
     public void givenStreamOfEvents_whenProcessEvents_thenShouldApplyTumblingWindowingOnTransformation() throws Exception {
         //given
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+        env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 
         SingleOutputStreamOperator<Tuple2<Integer, ZonedDateTime>> windowed = env.fromElements(
                 new Tuple2<>(15, ZonedDateTime.now()
@@ -56,26 +58,27 @@ public class TimeWindowTest {
         });
 
         SingleOutputStreamOperator<Long> reduced = windowed
-                .windowAll(TumblingEventTimeWindows.of(Time.seconds(4)))
+                .windowAll(TumblingEventTimeWindows.of(Time.seconds(4), Time.seconds(1)))
                 .apply(new ElementsInWindowCounter());
 
         //when
         List<Long> windows = DataStreamUtils.collect(reduced);
 
         //then
-        assertThat(windows.size()).isBetween(2, 3);
+        assertThat(windows.size()).isEqualTo(3);
     }
 
     @Test
     public void givenStreamOfEvents_whenProcessEvents_thenShouldApplySlidingWindowingOnTransformation() throws Exception {
         //given
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+        env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 
         SingleOutputStreamOperator<Tuple2<Integer, ZonedDateTime>> windowed = env.fromElements(
                 new Tuple2<>(15, ZonedDateTime.now().plusSeconds(2)),
                 new Tuple2<>(16, ZonedDateTime.now().plusSeconds(3)),
                 new Tuple2<>(17, ZonedDateTime.now().plusSeconds(8)),
-                new Tuple2<>(18, ZonedDateTime.now().plusMinutes(25))
+                new Tuple2<>(18, ZonedDateTime.now().plusSeconds(25))
         ).assignTimestampsAndWatermarks(new AscendingTimestampExtractor<Tuple2<Integer, ZonedDateTime>>() {
             @Override
             public long extractAscendingTimestamp(Tuple2<Integer, ZonedDateTime> element) {
@@ -84,13 +87,14 @@ public class TimeWindowTest {
         });
 
         SingleOutputStreamOperator<Long> reduced = windowed
-                .windowAll(SlidingEventTimeWindows.of(Time.seconds(5), Time.seconds(1)))
+                .windowAll(SlidingEventTimeWindows.of(Time.seconds(2), Time.seconds(1)))
                 .apply(new ElementsInWindowCounter());
 
         //when
         List<Long> windows = DataStreamUtils.collect(reduced);
 
         //then
+        assertThat(windows.stream().anyMatch(windowsSize -> windowsSize.equals(2L))).isTrue();
         assertThat(windows.size()).isGreaterThanOrEqualTo(5);
     }
 
@@ -99,13 +103,14 @@ public class TimeWindowTest {
     public void givenStreamOfEvents_whenProcessEvents_thenShouldApplySessionWindowingOnTransformation() throws Exception {
         //given
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+        env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 
         SingleOutputStreamOperator<Tuple2<Integer, ZonedDateTime>> windowed = env.fromElements(
                 new Tuple2<>(1, ZonedDateTime.now().plusSeconds(11)),
                 new Tuple2<>(2, ZonedDateTime.now().plusSeconds(12)),
                 new Tuple2<>(3, ZonedDateTime.now().plusSeconds(20)),
-                new Tuple2<>(4, ZonedDateTime.now().plusMinutes(21)),
-                new Tuple2<>(4, ZonedDateTime.now().plusMinutes(30))
+                new Tuple2<>(4, ZonedDateTime.now().plusSeconds(21)),
+                new Tuple2<>(5, ZonedDateTime.now().plusSeconds(30))
 
         ).assignTimestampsAndWatermarks(new AscendingTimestampExtractor<Tuple2<Integer, ZonedDateTime>>() {
             @Override
@@ -129,6 +134,7 @@ public class TimeWindowTest {
     public void givenStreamOfEvents_whenProcessEventsKeyedPerUserId_thenShouldApplySessionWindowingOnTransformation() throws Exception {
         //given
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+        env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 
         SingleOutputStreamOperator<Tuple2<Integer, ZonedDateTime>> windowed = env.fromElements(
                 new Tuple2<>(1, ZonedDateTime.now().plusSeconds(11)),//start first session
@@ -158,7 +164,7 @@ public class TimeWindowTest {
         List<Long> windows = DataStreamUtils.collect(reduced);
 
         //then
-        assertThat(windows.size()).isEqualTo(2);
+        assertThat(windows.size()).isEqualTo(4);
     }
 
 }
