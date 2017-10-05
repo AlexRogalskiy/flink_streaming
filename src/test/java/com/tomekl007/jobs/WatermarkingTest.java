@@ -50,7 +50,7 @@ public class WatermarkingTest {
                 new Tuple2<>(4, ZonedDateTime.now()
                         .withHour(1)
                         .withMinute(1)
-                        .withSecond(50)
+                        .withSecond(1)
                         .truncatedTo(ChronoUnit.SECONDS))
         )
                 .assignTimestampsAndWatermarks(
@@ -62,7 +62,7 @@ public class WatermarkingTest {
                         });
 
         SingleOutputStreamOperator<Integer> reduced = windowed
-                .windowAll(TumblingEventTimeWindows.of(Time.seconds(5), Time.seconds(1)))
+                .windowAll(TumblingEventTimeWindows.of(Time.seconds(5)))
                 .reduce(new ReduceFunction<Tuple2<Integer, ZonedDateTime>>() {
                     @Override
                     public Tuple2<Integer, ZonedDateTime> reduce(Tuple2<Integer, ZonedDateTime> t1,
