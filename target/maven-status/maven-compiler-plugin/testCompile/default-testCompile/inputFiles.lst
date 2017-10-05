@@ -1,9 +1,0 @@
-/Users/tomasz.lelek/intellij_workspace/flink/src/test/java/com/tomekl007/jobs/SortingTest.java
-/Users/tomasz.lelek/intellij_workspace/flink/src/test/java/com/tomekl007/jobs/com/tomekl007/utils/ElementsInWindowCounterKeyed.java
-/Users/tomasz.lelek/intellij_workspace/flink/src/test/java/com/tomekl007/jobs/StateProcessingTest.java
-/Users/tomasz.lelek/intellij_workspace/flink/src/test/java/com/tomekl007/jobs/TimeWindowTest.java
-/Users/tomasz.lelek/intellij_workspace/flink/src/test/java/com/tomekl007/jobs/deduplication/DeduplicateFilterTest.java
-/Users/tomasz.lelek/intellij_workspace/flink/src/test/java/com/tomekl007/jobs/WatermarkingTest.java
-/Users/tomasz.lelek/intellij_workspace/flink/src/test/java/com/tomekl007/jobs/com/tomekl007/utils/ElementsInWindowCounter.java
-/Users/tomasz.lelek/intellij_workspace/flink/src/test/java/com/tomekl007/jobs/StreamingAPIOverviewTest.java
-/Users/tomasz.lelek/intellij_workspace/flink/src/test/java/com/tomekl007/jobs/WordCountIntegrationTest.java

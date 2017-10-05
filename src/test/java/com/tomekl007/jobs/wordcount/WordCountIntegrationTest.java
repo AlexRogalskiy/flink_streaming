@@ -10,6 +10,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -41,17 +42,13 @@ public class WordCountIntegrationTest {
     }
 
     @Test
-    @Ignore
     public void givenListOfAmounts_whenUseMapReduce_thenSumAmountsThatAreOnlyAboveThreshold() throws Exception {
         //given
         DataSet<Integer> amounts = env.fromElements(1, 29, 40, 50);
         int threshold = 30;
 
         //when
-        List<Integer> collect = amounts
-                .filter(a -> a > threshold)
-                .reduce((integer, t1) -> integer + t1)
-                .collect();
+        List<Integer> collect = new LinkedList<>();//todo implement sumAboveThreshold
 
         //then
         assertThat(collect.get(0)).isEqualTo(90);
