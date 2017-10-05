@@ -23,7 +23,8 @@ public class StreamingAPIOverviewTest {
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
         DataStream<String> text
-                = null;//todo create stream from elements that match the logic
+                = env.fromElements("This is a first sentence",
+                "This is a second sentence with a one word");
         SingleOutputStreamOperator<String> upperCase = text.map(String::toUpperCase);
 
 
