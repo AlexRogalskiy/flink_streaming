@@ -71,7 +71,6 @@ public class WordCountIntegrationTest {
     }
 
     @Test
-    @Ignore
     public void givenDataSet_whenSortItByOneField_thenShouldReturnSortedDataSet() throws Exception {
         //given
         Tuple2<Integer, String> secondPerson = new Tuple2<>(4, "Tom");
@@ -121,7 +120,7 @@ public class WordCountIntegrationTest {
     private static class IdKeySelectorTransaction implements KeySelector<Tuple2<Integer, String>, Integer> {
         @Override
         public Integer getKey(Tuple2<Integer, String> value) {
-            return value.f0;
+            return 0; //todo implement selector of needed field
         }
     }
 
