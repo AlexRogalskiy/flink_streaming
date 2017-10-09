@@ -89,7 +89,7 @@ public class TimeWindowTest {
         });
 
         SingleOutputStreamOperator<Long> reduced = windowed
-                .windowAll(SlidingEventTimeWindows.of(Time.milliseconds(500), Time.milliseconds(500)))
+                .windowAll(SlidingEventTimeWindows.of(Time.seconds(2), Time.seconds(1)))
                 .apply(new ElementsInWindowCounter());
 
         //when
