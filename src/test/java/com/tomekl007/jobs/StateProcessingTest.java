@@ -20,7 +20,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class StateProcessingTest {
     @Test
-    @Ignore
     public void givenStreamOfInts_whenCalculateAverage_thenShouldReturnProperValue() throws IOException {
         //given
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
