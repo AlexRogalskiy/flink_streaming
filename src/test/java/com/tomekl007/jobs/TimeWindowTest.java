@@ -133,7 +133,6 @@ public class TimeWindowTest {
     }
 
     @Test
-    @Ignore
     public void givenStreamOfEvents_whenProcessEventsKeyedPerUserId_thenShouldApplySessionWindowingOnTransformation() throws Exception {
         //given
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -157,7 +156,7 @@ public class TimeWindowTest {
                 .keyBy(new KeySelector<Tuple2<Integer, ZonedDateTime>, Integer>() {
                     @Override
                     public Integer getKey(Tuple2<Integer, ZonedDateTime> t) throws Exception {
-                        return t.f0;
+                        return 0;//todo implement;
                     }
                 })
                 .window(EventTimeSessionWindows.withGap(Time.seconds(7)))
