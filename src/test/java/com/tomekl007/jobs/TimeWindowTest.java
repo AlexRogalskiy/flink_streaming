@@ -102,7 +102,6 @@ public class TimeWindowTest {
 
 
     @Test
-    @Ignore
     public void givenStreamOfEvents_whenProcessEvents_thenShouldApplySessionWindowingOnTransformation() throws Exception {
         //given
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -123,7 +122,7 @@ public class TimeWindowTest {
         });
 
         SingleOutputStreamOperator<Long> reduced = windowed
-                .windowAll(EventTimeSessionWindows.withGap(Time.seconds(7)))
+                .windowAll(EventTimeSessionWindows.withGap(Time.seconds(10)))
                 .apply(new ElementsInWindowCounter());
 
         //when
