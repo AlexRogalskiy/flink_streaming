@@ -41,7 +41,6 @@ public class StateProcessingTest {
     }
 
     @Test
-    @Ignore
     public void givenStreamOfInts_whenCalculateAverage_thenShouldReturnProperValueWithCheckpointing() throws Exception {
         //given
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
