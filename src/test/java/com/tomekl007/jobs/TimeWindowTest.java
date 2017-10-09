@@ -156,7 +156,7 @@ public class TimeWindowTest {
                 .keyBy(new KeySelector<Tuple2<Integer, ZonedDateTime>, Integer>() {
                     @Override
                     public Integer getKey(Tuple2<Integer, ZonedDateTime> t) throws Exception {
-                        return 0;//todo implement;
+                        return t.f0;
                     }
                 })
                 .window(EventTimeSessionWindows.withGap(Time.seconds(7)))
