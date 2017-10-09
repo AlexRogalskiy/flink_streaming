@@ -24,7 +24,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class SortingTest {
     @Test
-    @Ignore
     public void givenUnsortedStream_whenSortingIt_thenShouldHaveProperOrder() throws IOException {
         //given
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -75,17 +74,7 @@ public class SortingTest {
                           Iterable<Tuple2<Integer, ZonedDateTime>> values,
                           Collector<Iterable<Tuple2<Integer, ZonedDateTime>>> out) throws Exception {
             System.out.println("values:" + values);
-            List<Tuple2<Integer, ZonedDateTime>> sortedList = new ArrayList<>();
-            for (Tuple2<Integer, ZonedDateTime> i : values) {
-                sortedList.add(i);
-            }
-            sortedList.sort(new Comparator<Tuple2<Integer, ZonedDateTime>>() {
-                @Override
-                public int compare(Tuple2<Integer, ZonedDateTime> o1, Tuple2<Integer, ZonedDateTime> o2) {
-                    return o1.f1.compareTo(o2.f1);
-                }
-            });
-            out.collect(sortedList);
+            //todo implement sorting of values and publish result to out
         }
 
     }
