@@ -23,8 +23,8 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TimeWindowTest {
+
     @Test
-    @Ignore
     public void givenStreamOfEvents_whenProcessEvents_thenShouldApplyTumblingWindowingOnTransformation() throws Exception {
         //given
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -60,7 +60,7 @@ public class TimeWindowTest {
         });
 
         SingleOutputStreamOperator<Long> reduced = windowed
-                .windowAll(TumblingEventTimeWindows.of(Time.seconds(4), Time.seconds(1)))
+                .windowAll(TumblingEventTimeWindows.of(Time.seconds(10)))
                 .apply(new ElementsInWindowCounter());
 
         //when
