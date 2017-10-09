@@ -122,7 +122,7 @@ public class TimeWindowTest {
         });
 
         SingleOutputStreamOperator<Long> reduced = windowed
-                .windowAll(EventTimeSessionWindows.withGap(Time.seconds(10)))
+                .windowAll(EventTimeSessionWindows.withGap(Time.seconds(7)))
                 .apply(new ElementsInWindowCounter());
 
         //when
