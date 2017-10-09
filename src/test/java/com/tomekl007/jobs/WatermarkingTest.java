@@ -1,6 +1,7 @@
 package com.tomekl007.jobs;
 
 
+import com.tomekl007.jobs.abandonedcart.CartEvent;
 import flink.stream.contrib.DataStreamUtils;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.common.functions.ReduceFunction;
@@ -68,7 +69,7 @@ public class WatermarkingTest {
                     public Tuple2<Integer, ZonedDateTime> reduce(Tuple2<Integer, ZonedDateTime> t1,
                                                                  Tuple2<Integer, ZonedDateTime> t2) throws Exception {
                         System.out.println("t1: " + t1 + " t2: " + t2);
-                        return Tuple2.of(t1.f0 + t2.f0, t1.f1);
+                        return Tuple2.of(t1.f0 + t2.f0, ZonedDateTime.now());
                     }
                 })
                 .map(new MapFunction<Tuple2<Integer, ZonedDateTime>, Integer>() {
