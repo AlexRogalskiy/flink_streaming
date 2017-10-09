@@ -60,7 +60,7 @@ public class TimeWindowTest {
         });
 
         SingleOutputStreamOperator<Long> reduced = windowed
-                .windowAll(TumblingEventTimeWindows.of(Time.seconds(10)))
+                .windowAll(TumblingEventTimeWindows.of(Time.seconds(4), Time.seconds(1)))
                 .apply(new ElementsInWindowCounter());
 
         //when
