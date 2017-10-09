@@ -71,7 +71,6 @@ public class TimeWindowTest {
     }
 
     @Test
-    @Ignore
     public void givenStreamOfEvents_whenProcessEvents_thenShouldApplySlidingWindowingOnTransformation() throws Exception {
         //given
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -90,7 +89,7 @@ public class TimeWindowTest {
         });
 
         SingleOutputStreamOperator<Long> reduced = windowed
-                .windowAll(SlidingEventTimeWindows.of(Time.seconds(2), Time.seconds(1)))
+                .windowAll(SlidingEventTimeWindows.of(Time.milliseconds(500), Time.milliseconds(500)))
                 .apply(new ElementsInWindowCounter());
 
         //when
