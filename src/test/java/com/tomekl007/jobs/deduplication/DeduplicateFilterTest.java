@@ -17,7 +17,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class DeduplicateFilterTest {
 
     @Test
-    @Ignore
     public void givenStreamWithDuplicates_whenDuplicateArrive_thenShouldFilterItOut() throws IOException {
         //given
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -29,7 +28,8 @@ public class DeduplicateFilterTest {
                 Tuple2.of(UUID.randomUUID().toString(), "value"),
                 Tuple2.of(uniqueIdOfDuplicate, "value_2"));
 
-        SingleOutputStreamOperator<Tuple2<String, String>> dedupliacte = input.keyBy(0).flatMap(new DeduplicateFilter());
+        SingleOutputStreamOperator<Tuple2<String, String>> dedupliacte
+                = input.keyBy(0).flatMap(new DeduplicateFilter());
 
         //then
         List<Tuple2<String, String>> result = DataStreamUtils.collect(dedupliacte);

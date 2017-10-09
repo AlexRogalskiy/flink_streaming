@@ -20,11 +20,6 @@ public class DeduplicateFilter extends RichFlatMapFunction<Tuple2<String, String
 
     @Override
     public void flatMap(Tuple2<String, String> value, Collector<Tuple2<String, String>> out) throws Exception {
-        if (!operatorState.value()) {
-            // we haven't seen the element yet
-            out.collect(value);
-            // set operator state to true so that we don't emit elements with this key again
-            operatorState.update(true);
-        }
+      //todo implement deduplication using operatorState ( it is keyed by the unique message id )
     }
 }
